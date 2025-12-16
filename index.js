@@ -5,8 +5,8 @@
 
 const servers = [
   {
-    host: 'emerald.magmanode.com',
-    port: 34356,
+    host: '191.96.231.11',
+    port: 32968,
     // username: 'AFK_Bot',   // 可选，不写则随机
     // version: '1.21.1'     // 可选，不写则自动检测
   }
