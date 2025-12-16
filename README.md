@@ -12,7 +12,7 @@
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/install.sh)
 
-配置服务器
+```配置服务器
 编辑 servers.json：
 [
   {
