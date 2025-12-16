@@ -222,7 +222,7 @@ pm2 restart mcbot
 
 ## 🗑️ 完全卸载
 
-### 自动卸载（如果有 uninstall.sh）
+### 自动卸载
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/uninstall.sh)
@@ -275,6 +275,7 @@ rm -rf mcbot-onekey
 mcbot-onekey/
 ├── index.js          # 主程序入口（包含服务器配置）
 ├── install.sh        # 安装脚本
+├── uninstall.sh      # 卸载脚本
 ├── package.json      # npm 依赖配置
 └── node_modules/     # 依赖包目录
 ```
