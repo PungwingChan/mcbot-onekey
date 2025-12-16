@@ -1,0 +1,16 @@
+{
+  "name": "mcbot-onekey",
+  "version": "1.0.0",
+  "description": "Minecraft Bot Keep Alive (single-entry index.js, no servers.json)",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@baipiaodajun/mcbot": "^1.0.0",
+    "mineflayer": "^4.16.0",
+    "minecraft-protocol": "^1.54.0",
+    "node-fetch": "^3.3.2"
+  }
+}
