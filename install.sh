@@ -11,7 +11,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # ========= 你需要改的地方 =========
-REPO_URL="https://github.com/PungwingChan/mcbot-onekey"
+REPO_URL="https://github.com/liwenxiang1984/mcbot-onekey"
 APP_DIR="mcbot-onekey"
 # ==================================
 
