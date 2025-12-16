@@ -9,7 +9,7 @@
 - 🎲 **自动随机用户名** - 无需手动配置，自动生成
 - 🔍 **智能版本检测** - 自动识别服务器版本
 - 💪 **稳定可靠** - 基于 pm2 进程管理，自动重启
-- ⚡ **一键部署** - 一条命令搞定所有配置
+- ⚡ **一键部署** - Fork 改配置，一条命令完成部署
 
 ## 📋 适用场景
 
@@ -24,8 +24,6 @@
 ### 第零步：配置你的 Minecraft 服务器
 
 在开始之前，请先确保你的 Paper 服务器配置正确。
-
-重要⚠️：Java Version 1.21.1
 
 编辑服务器目录下的 `server.properties` 文件，确保以下配置项设置正确：
 
@@ -46,72 +44,63 @@ white-list=false
 
 ---
 
-### 第一步：Fork 本仓库
+### 第一步：Fork 并配置仓库
 
-1. 打开 [本仓库页面](https://github.com/你的用户名/mcbot-onekey)
+#### 1. Fork 本仓库
+
+1. 打开 [本仓库页面](https://github.com/原作者/mcbot-onekey)
 2. 点击右上角 **Fork** 按钮
 3. Fork 到你自己的 GitHub 账号下
 
-> 💡 Fork 后，后续所有命令都会使用 **你自己的仓库地址**
+#### 2. 修改 `index.js` 配置服务器
 
-### 第二步：一键安装
+在你 Fork 的仓库中，编辑 `index.js` 文件，找到服务器配置部分：
 
-复制下面这一整行命令，在自己的任意VPS服务器中执行：
-
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/install.sh)
-```
-
-#### 🎯 安装脚本会自动完成：
-
-- ✅ 检测并安装 Node.js 22（如未安装）
-- ✅ 安装 npm
-- ✅ 全局安装 pm2
-- ✅ 安装 @baipiaodajun/mcbot 依赖
-- ✅ 初始化配置文件
-- ✅ 启动 Bot 服务
-
-**无需任何人工干预，坐等安装完成即可！** ☕
-
----
-
-## ⚙️ 配置服务器
-
-安装完成后，编辑 `servers.json` 文件：
-
-### 单服务器配置示例
-
-```json
-[
+```javascript
+// ========= 在这里配置你的服务器 =========
+const servers = [
   {
-    "host": "emerald.magmanode.com",
-    "port": 34356
+    host: 'emerald.magmanode.com',
+    port: 34356
   }
-]
+  // 添加更多服务器，直接在下面继续写
+];
+// =========================================
 ```
 
-### 多服务器配置示例
+**单服务器示例：**
 
-```json
-[
+```javascript
+const servers = [
   {
-    "host": "emerald.magmanode.com",
-    "port": 34356
+    host: 'your-server.com',
+    port: 25565
+  }
+];
+```
+
+**多服务器示例：**
+
+```javascript
+const servers = [
+  {
+    host: 'server1.com',
+    port: 25565
   },
   {
-    "host": "example.mcserver.com",
-    "port": 25565
+    host: 'server2.net',
+    port: 25566,
+    username: 'CustomBot',
+    version: '1.20.1'
   },
   {
-    "host": "another-server.net",
-    "port": 25566,
-    "username": "CustomBot",
-    "version": "1.20.1"
+    host: 'server3.io',
+    port: 34356
   }
-]
+];
 ```
 
-### 📝 配置说明
+#### 📝 配置说明
 
 | 参数 | 说明 | 是否必填 |
 |------|------|----------|
@@ -120,7 +109,49 @@ bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey
 | `username` | 登录用户名 | ❌ 可选（不填自动随机生成）|
 | `version` | Minecraft 版本 | ❌ 可选（不填自动检测）|
 
-保存后，Bot 会自动为每个服务器启动一个独立进程 🎉
+#### 3. 修改 `install.sh` 中的仓库地址
+
+编辑 `install.sh` 文件，修改仓库地址为你自己的：
+
+```bash
+# ========= 你需要改的地方 =========
+REPO_URL="https://github.com/你的用户名/mcbot-onekey.git"
+APP_DIR="mcbot-onekey"
+# ==================================
+```
+
+**将 `你的用户名` 替换为你的实际 GitHub 用户名。**
+
+#### 4. 提交修改
+
+修改完成后，记得 **Commit（提交）** 你的更改！
+
+---
+
+### 第二步：一键安装
+
+> ⚠️ **注意**：此脚本需要 **root 权限**运行
+
+复制下面这一整行命令，在你的任意VPS中执行：
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/install.sh)
+```
+
+**记得把 `你的用户名` 替换成你实际的 GitHub 用户名！**
+
+#### 🎯 安装脚本会自动完成：
+
+- ✅ 检查并要求 root 权限
+- ✅ 更新系统包管理器
+- ✅ 安装 curl 和 git
+- ✅ 检测 Node.js 版本（<18 会自动安装 Node.js 22）
+- ✅ 检测并安装 pm2（如未安装）
+- ✅ 克隆你的仓库（包含你配置好的 `index.js`）
+- ✅ 安装项目依赖
+- ✅ 启动 Bot 服务
+
+**无需任何人工干预，坐等安装完成即可！** ☕
 
 ---
 
@@ -138,39 +169,83 @@ pm2 ls
 pm2 logs mcbot
 ```
 
-### 重启所有 Bot
+### 重启 Bot
 
 ```bash
-pm2 restart all
+pm2 restart mcbot
 ```
 
-### 停止所有 Bot
+### 停止 Bot
 
 ```bash
-pm2 stop all
+pm2 stop mcbot
+```
+
+### 查看详细信息
+
+```bash
+pm2 show mcbot
 ```
 
 ---
 
-## 🗑️ 停止 / 卸载
+## 🔄 修改服务器配置
 
-需要完全卸载？复制下面这一整行命令执行：
+如果需要修改服务器配置（添加/删除服务器），有两种方式：
+
+### 方式一：修改 GitHub 仓库后重新部署（推荐）
+
+1. 在 GitHub 上修改你仓库中的 `index.js` 文件
+2. 提交修改
+3. 在服务器上执行：
+
+```bash
+cd mcbot-onekey
+git pull
+pm2 restart mcbot
+```
+
+### 方式二：直接在服务器上修改
+
+```bash
+cd mcbot-onekey
+nano index.js
+# 修改服务器配置
+pm2 restart mcbot
+```
+
+> 💡 **注意**：方式二的修改在下次 `git pull` 时可能会被覆盖，推荐使用方式一。
+
+---
+
+## 🗑️ 完全卸载
+
+### 自动卸载（如果有 uninstall.sh）
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/uninstall.sh)
 ```
 
-### 🧹 卸载脚本会自动完成：
+### 手动卸载
 
-- ✅ 停止所有 mcbot 进程
-- ✅ 删除 pm2 进程配置
-- ✅ 删除 node_modules
-- ✅ 删除配置文件
-- ✅ 不影响系统中其他服务
+```bash
+# 停止并删除 pm2 进程
+pm2 delete mcbot
+pm2 save
+
+# 删除项目目录
+cd ~
+rm -rf mcbot-onekey
+```
 
 ---
 
 ## ⚠️ 重要注意事项
+
+### 权限要求
+
+- 🔐 安装脚本需要 **root 权限**运行
+- 💡 如果提示权限不足，请使用 `sudo su` 切换到 root 用户
 
 ### 版本兼容性
 
@@ -178,19 +253,28 @@ bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey
 - ✅ **推荐使用** Paper 1.21.1（最稳定）
 - 💡 如果服务器版本过新，请先降版本再使用
 
-### 服务器配置建议
+### Node.js 版本
 
-在 `server.properties` 中添加以下配置：
+- 📦 脚本会自动检测 Node.js 版本
+- 🔄 如果版本低于 18，会自动安装 Node.js 22
+- ✅ 如果已安装 18+ 版本，会跳过安装
 
-```properties
-# 取消在线验证，允许非正式客户端连接
-online-mode=false
+### 配置方式说明
 
-# 和平模式，防止机器人被怪物击杀
-difficulty=peaceful
+- 📝 **所有服务器配置都在 `index.js` 中完成**
+- 🚫 **不需要** `servers.json` 文件
+- ✅ Fork 仓库 → 修改 `index.js` → 运行安装脚本 → 完成
 
-# 关闭白名单，允许任何玩家加入
-white-list=false
+### 项目结构
+
+安装后的项目目录结构：
+
+```
+mcbot-onekey/
+├── index.js          # 主程序入口（包含服务器配置）
+├── install.sh        # 安装脚本
+├── package.json      # npm 依赖配置
+└── node_modules/     # 依赖包目录
 ```
 
 ### 使用声明
@@ -201,9 +285,72 @@ white-list=false
 
 ---
 
+## 🐛 常见问题
+
+### 1. 提示 "请使用 root 用户运行"
+
+**解决方案**：
+
+```bash
+sudo su
+# 然后重新运行安装命令
+```
+
+### 2. Bot 连接失败
+
+**检查清单**：
+- ✅ `index.js` 中服务器地址和端口是否正确
+- ✅ `server.properties` 中 `online-mode=false` 是否已设置
+- ✅ 服务器版本是否支持（<1.21.4）
+- ✅ 防火墙是否开放端口
+
+### 3. 修改配置后没生效
+
+**解决方案**：
+
+修改 `index.js` 后需要重启 Bot：
+
+```bash
+pm2 restart mcbot
+```
+
+### 4. Node.js 版本过低
+
+脚本会自动安装 Node.js 22，如果仍有问题，可手动安装：
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt install -y nodejs
+```
+
+### 5. pm2 命令找不到
+
+```bash
+npm install -g pm2
+```
+
+### 6. git pull 提示有冲突
+
+如果你在服务器上直接修改了 `index.js`，拉取更新时可能会有冲突：
+
+```bash
+cd mcbot-onekey
+git stash           # 暂存本地修改
+git pull            # 拉取远程更新
+git stash pop       # 恢复本地修改
+# 手动解决冲突后
+pm2 restart mcbot
+```
+
+---
+
 ## 🤝 贡献
 
 欢迎提交 Issue 和 Pull Request！
+
+如果你有好的想法或发现了 bug，请随时提交。
+
+---
 
 ## 📄 许可证
 
@@ -215,6 +362,7 @@ MIT License
 
 - [@baipiaodajun/mcbot](https://github.com/baipiaodajun/mcbot) - 核心 Bot 库
 - [pm2](https://pm2.keymetrics.io/) - 进程管理工具
+- [Node.js](https://nodejs.org/) - JavaScript 运行环境
 
 ---
 
