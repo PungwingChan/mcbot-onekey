@@ -1,122 +1,202 @@
-Minecraft Bot Keep Alive（mcbot-onekey）
+# 🤖 Minecraft Bot Keep Alive (mcbot-onekey)
 
-基于 @baipiaodajun/mcbot + pm2 的 Minecraft 保活 Bot
-支持多个服务器同时挂机
-支持自动随机用户名
-支持自动检测服务器版本
-适用于挂机 / 保活 / 测试用途
+> 基于 @baipiaodajun/mcbot + pm2 的 Minecraft 保活 Bot  
+> 让你的服务器永不掉线 🚀
 
-==================================================
+## ✨ 特性
 
-一、Fork 本仓库（给别人用）
+- 🌐 **多服务器支持** - 同时挂机多个 Minecraft 服务器
+- 🎲 **自动随机用户名** - 无需手动配置，自动生成
+- 🔍 **智能版本检测** - 自动识别服务器版本
+- 💪 **稳定可靠** - 基于 pm2 进程管理，自动重启
+- ⚡ **一键部署** - 一条命令搞定所有配置
 
-打开本仓库页面
+## 📋 适用场景
 
-点击右上角 Fork
+- 🏠 服务器保活 / 挂机
+- 🧪 服务器测试
+- 👥 模拟玩家在线
 
-Fork 到自己 GitHub 账号下
+---
 
-Fork 后，后续所有命令都会使用“你自己的仓库地址”
+## 🚀 快速开始
 
-==================================================
+### 第一步：Fork 本仓库
 
-二、一键安装（复制这一整行即可执行）
+1. 打开 [本仓库页面](https://github.com/你的用户名/mcbot-onekey)
+2. 点击右上角 **Fork** 按钮
+3. Fork 到你自己的 GitHub 账号下
 
-bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/install.sh
-)
+> 💡 Fork 后，后续所有命令都会使用 **你自己的仓库地址**
 
-说明：
-安装过程会自动完成以下所有事情，无需人工干预：
+### 第二步：一键安装
 
-自动检测并安装 Node.js 22（如未安装）
+复制下面这一整行命令，在服务器终端中执行：
 
-自动安装 npm
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/install.sh)
+```
 
-自动全局安装 pm2
+#### 🎯 安装脚本会自动完成：
 
-自动安装 @baipiaodajun/mcbot 依赖
+- ✅ 检测并安装 Node.js 22（如未安装）
+- ✅ 安装 npm
+- ✅ 全局安装 pm2
+- ✅ 安装 @baipiaodajun/mcbot 依赖
+- ✅ 初始化配置文件
+- ✅ 启动 Bot 服务
 
-自动初始化配置文件
+**无需任何人工干预，坐等安装完成即可！** ☕
 
-自动启动 Bot 服务
+---
 
-==================================================
+## ⚙️ 配置服务器
 
-三、配置服务器（支持多个）
+安装完成后，编辑 `servers.json` 文件：
 
-安装完成后，编辑 servers.json 文件：
+### 单服务器配置示例
 
+```json
 [
-{
-"host": "emerald.magmanode.com",
-"port": 34356
-}
+  {
+    "host": "emerald.magmanode.com",
+    "port": 34356
+  }
 ]
+```
 
-说明：
+### 多服务器配置示例
 
-host：Minecraft 服务器地址
-
-port：Minecraft 服务器端口
-
-username：不填写会自动随机生成
-
-version：不填写会自动检测服务器版本
-
-如果要添加多个服务器，直接继续往下加，例如：
-
+```json
 [
-{
-"host": "emerald.magmanode.com",
-"port": 34356
-},
-{
-"host": "example.mcserver.com",
-"port": 25565
-}
+  {
+    "host": "emerald.magmanode.com",
+    "port": 34356
+  },
+  {
+    "host": "example.mcserver.com",
+    "port": 25565
+  },
+  {
+    "host": "another-server.net",
+    "port": 25566,
+    "username": "CustomBot",
+    "version": "1.20.1"
+  }
 ]
+```
 
-保存后，Bot 会自动为每个服务器启动一个进程。
+### 📝 配置说明
 
-==================================================
+| 参数 | 说明 | 是否必填 |
+|------|------|----------|
+| `host` | Minecraft 服务器地址 | ✅ 必填 |
+| `port` | Minecraft 服务器端口 | ✅ 必填 |
+| `username` | 登录用户名 | ❌ 可选（不填自动随机生成）|
+| `version` | Minecraft 版本 | ❌ 可选（不填自动检测）|
 
-四、查看运行状态
+保存后，Bot 会自动为每个服务器启动一个独立进程 🎉
 
-查看所有 Bot 进程状态：
+---
 
+## 📊 管理命令
+
+### 查看所有 Bot 进程状态
+
+```bash
 pm2 ls
+```
 
-查看 Bot 实时日志：
+### 查看 Bot 实时日志
 
+```bash
 pm2 logs mcbot
+```
 
-==================================================
+### 重启所有 Bot
 
-五、停止 / 卸载（复制这一整行即可）
+```bash
+pm2 restart all
+```
 
-bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/uninstall.sh
-)
+### 停止所有 Bot
 
-卸载将会自动完成：
+```bash
+pm2 stop all
+```
 
-停止所有 mcbot 进程
+---
 
-删除 pm2 进程配置
+## 🗑️ 停止 / 卸载
 
-删除 node_modules
+需要完全卸载？复制下面这一整行命令执行：
 
-删除配置文件
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/uninstall.sh)
+```
 
-不影响系统中其他服务
+### 🧹 卸载脚本会自动完成：
 
-==================================================
+- ✅ 停止所有 mcbot 进程
+- ✅ 删除 pm2 进程配置
+- ✅ 删除 node_modules
+- ✅ 删除配置文件
+- ✅ 不影响系统中其他服务
 
-六、重要注意事项（必看）
+---
 
-不支持 Minecraft 1.21.4 及以上版本（协议 773）
+## ⚠️ 重要注意事项
 
-推荐使用 Paper 1.21.1（最稳定）
+### 版本兼容性
 
-如果服务器版本过新，请先降服再使用
+- ❌ **不支持** Minecraft 1.21.4 及以上版本（协议 773+）
+- ✅ **推荐使用** Paper 1.21.1（最稳定）
+- 💡 如果服务器版本过新，请先降版本再使用
 
-本工具不适合商业用途，仅用于挂机 / 保活 / 测试
+### 服务器配置建议
+
+在 `server.properties` 中添加以下配置：
+
+```properties
+# 取消在线验证，允许非正式客户端连接
+online-mode=false
+
+# 和平模式，防止机器人被怪物击杀
+difficulty=peaceful
+
+# 关闭白名单，允许任何玩家加入
+white-list=false
+```
+
+### 使用声明
+
+- 📌 本工具仅用于 **挂机 / 保活 / 测试** 用途
+- 🚫 不适合商业用途
+- ⚖️ 请遵守服务器规则，合理使用
+
+---
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 📄 许可证
+
+MIT License
+
+---
+
+## 💖 致谢
+
+- [@baipiaodajun/mcbot](https://github.com/baipiaodajun/mcbot) - 核心 Bot 库
+- [pm2](https://pm2.keymetrics.io/) - 进程管理工具
+
+---
+
+<div align="center">
+
+**⭐ 如果这个项目对你有帮助，请给个 Star 支持一下！**
+
+Made with ❤️ by Minecraft 玩家们
+
+</div>
